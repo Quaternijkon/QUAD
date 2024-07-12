@@ -1,8 +1,37 @@
-#import "@preview/touying:0.4.0": *
+#import "@preview/touying:0.4.2": *
 
 // University theme
 
 // Originally contributed by Pol Dellaiera - https://github.com/drupol
+
+#let dark_theme=false
+
+// #let (
+//   theme-primary,
+//   theme-secondary,
+//   theme-tertiary,
+//   theme-error,
+//   theme-background,
+//   theme-outline,
+// ) = if dark_theme {
+//   (
+//     rgb("#ADC6FF"),
+//     rgb("#9CD49F"),
+//     rgb("#EAC16C"),
+//     rgb("#FFB4A9"),
+//     rgb("#111318"),
+//     rgb("#8E9099"),
+//   )
+// } else {
+//   (
+//     rgb("#445E91"),
+//     rgb("#36693E"),
+//     rgb("#785A0B"),
+//     rgb("#904A41"),
+//     rgb("#F9F9FF"),
+//     rgb("#74777F"),
+//   )
+// }
 
 #let slide(
   self: none,
@@ -185,9 +214,51 @@
   // color theme
   self = (self.methods.colors)(
     self: self,
-    primary: rgb("#04364A"),
-    secondary: rgb("#176B87"),
-    tertiary: rgb("#448C95"),
+    primary: rgb("#4285F4"),
+    secondary: rgb("#34A853"),
+    tertiary: rgb("#FBBC05"),
+    error: rgb("#EA4335"),
+
+    // (
+    //   theme-primary,
+    //   theme-secondary,
+    //   theme-tertiary,
+    //   theme-error,
+    //   theme-background,
+    //   theme-outline,
+    // )=if(dark_theme){
+    //   (
+    //     rgb("#ADC6FF"),
+    //     rgb("#9CD49F"),
+    //     rgb("#EAC16C"),
+    //     rgb("#FFB4A9"),
+    //     rgb("#111318"),
+    //     rgb("#8E9099"),
+    //   )
+    // }else{
+    //   (
+    //     rgb("#445E91"),
+    //     rgb("#36693E"),
+    //     rgb("#785A0B"),
+    //     rgb("#904A41"),
+    //     rgb("#F9F9FF"),
+    //     rgb("#74777F"),
+    //   )
+    // }
+
+    light-primary: rgb("#445E91"),
+    light-secondary: rgb("#36693E"),
+    light-tertiary: rgb("#785A0B"),
+    light-error: rgb("#904A41"),
+    light-background: rgb("#F9F9FF"),
+    light-outline: rgb("#74777F"),
+
+    dark-primary: rgb("#ADC6FF"),
+    dark-secondary: rgb("#9CD49F"),
+    dark-tertiary: rgb("#EAC16C"),
+    dark-error: rgb("#FFB4A9"),
+    dark-background: rgb("#111318"),
+    dark-outline: rgb("#8E9099"),
   )
   // save the variables for later use
   self.uni-enable-progress-bar = progress-bar
@@ -274,7 +345,7 @@
   }
   self.methods.alert = (self: none, it) => text(fill: self.colors.primary, it)
   self.methods.init = (self: none, body) => {
-    set text(size: 25pt)
+    set text(size: 20pt, font: "PingFang SC")
     show footnote.entry: set text(size: .6em)
     body
   }
