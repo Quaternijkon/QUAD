@@ -1,7 +1,8 @@
 #import "@preview/touying:0.4.2": *
-#import "lib.typ"
+#import "theme.typ"
 
-#let s = lib.register(aspect-ratio: "16-9")
+
+#let s = theme.register(aspect-ratio: "16-9")
 #let s = (s.methods.numbering)(self: s, section: "1.", "1.1")
 #let s = (s.methods.info)(
   self: s,
