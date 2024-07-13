@@ -235,12 +235,17 @@
   aspect-ratio: "16-9",
   progress-bar: true,
   display-current-section: true,
-  footer-columns: (25%, 1fr, 25%),
+  footer-columns: (10%,75%,10%,5%),
   footer-a: self => self.info.author,
   footer-b: self => if self.info.short-title == auto { self.info.title } else { self.info.short-title },
   footer-c: self => {
     h(1fr)
     utils.info-date(self)
+    h(1fr)
+    // states.slide-counter.display() + " / " + states.last-slide-number
+    // h(1fr)
+  },
+  footer-d: self => {
     h(1fr)
     states.slide-counter.display() + " / " + states.last-slide-number
     h(1fr)
@@ -320,6 +325,7 @@
       cell(fill: self.colors.primary, utils.call-or-display(self, footer-a)),
       cell(fill: self.colors.secondary, utils.call-or-display(self, footer-b)),
       cell(fill: self.colors.tertiary, utils.call-or-display(self, footer-c)),
+      cell(fill: self.colors.error, utils.call-or-display(self, footer-d)),
     )
   }
   self.uni-header = self => {

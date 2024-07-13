@@ -54,3 +54,11 @@
     [#char]
   }
 }
+
+#let XOR(a, b)={
+  (a or b) and not (a and b)
+}
+
+#let hash(seed, index)={
+    XOR(index*31+seed*17, index*8) and 0x3
+}
