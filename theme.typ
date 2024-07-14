@@ -50,22 +50,22 @@
 //   }
 // }
 
-#let dye(text)={
-  let colors = [
-    #theme-primary,
-    #theme-secondary,
-    #theme-tertiary,
-    #theme-error,
-  ]
-  for i in range(0, text.length()) {
-    let color = colors[i % 4];
-    let char = text[i];
-    // 用指定的颜色包裹每个字符
-    set text(color: color)
-    [#char]
-  }
+// #let dye(text)={
+//   let colors = [
+//     #theme-primary,
+//     #theme-secondary,
+//     #theme-tertiary,
+//     #theme-error,
+//   ]
+//   for i in range(0, text.length()) {
+//     let color = colors[i % 4];
+//     let char = text[i];
+//     // 用指定的颜色包裹每个字符
+//     set text(color: color)
+//     [#char]
+//   }
 
-}
+// }
 
 
 #let slide(
@@ -78,19 +78,19 @@
   ..args,
 ) = {
   if title != auto {
-    self.uni-title = title
+    self.quad-title = title
   }
   if subtitle != auto {
-    self.uni-subtitle = subtitle
+    self.quad-subtitle = subtitle
   }
   if header != auto {
-    self.uni-header = header
+    self.quad-header = header
   }
   if footer != auto {
-    self.uni-footer = footer
+    self.quad-footer = footer
   }
   if display-current-section != auto {
-    self.uni-display-current-section = display-current-section
+    self.quad-display-current-section = display-current-section
   }
   (self.methods.touying-slide)(
     ..args.named(),
@@ -103,7 +103,7 @@
   )
 }
 
-#let title-slide(self: none, ..args) = {
+#let title-slide(self: none, ..args) = {//首页
   self = utils.empty-page(self)
   let info = self.info + args.named()
   info.authors = {
@@ -155,7 +155,7 @@
     set text(size: 1.5em, fill: self.colors.primary, weight: "bold")
     states.current-section-with-numbering(self)
     v(-.5em)
-    block(height: 2pt, width: 100%, spacing: 0pt, utils.call-or-display(self, self.uni-progress-bar))
+    block(height: 2pt, width: 100%, spacing: 0pt, utils.call-or-display(self, self.quad-progress-bar))
   }
   (self.methods.touying-slide)(self: self, repeat: none, section: (title: title, short-title: short-title), content)
 }
@@ -259,6 +259,20 @@
     tertiary: rgb("#FBBC05"),
     error: rgb("#EA4335"),
 
+    // primary: rgb("#445E91"),
+    // secondary: rgb("#36693E"),
+    // tertiary: rgb("#785A0B"),
+    // error: rgb("#904A41"),
+    // background: rgb("#F9F9FF"),
+    // outline: rgb("#74777F"),
+
+    // primary: rgb("#ADC6FF"),
+    // secondary: rgb("#9CD49F"),
+    // tertiary: rgb("#EAC16C"),
+    // error: rgb("#FFB4A9"),
+    // background: rgb("#111318"),
+    // outline: rgb("#8E9099"),
+
     // (
     //   theme-primary,
     //   theme-secondary,
@@ -301,19 +315,19 @@
     dark-outline: rgb("#8E9099"),
   )
   // save the variables for later use
-  self.uni-enable-progress-bar = progress-bar
-  self.uni-progress-bar = self => states.touying-progress(ratio => {
+  self.quad-enable-progress-bar = progress-bar
+  self.quad-progress-bar = self => states.touying-progress(ratio => {
     grid(
       columns: (ratio * 100%, 1fr),
       rows: 2pt,
-      components.cell(fill: self.colors.primary),
+      components.cell(fill: self.colors.secondary),
       components.cell(fill: self.colors.tertiary)
     )
   })
-  self.uni-display-current-section = display-current-section
-  self.uni-title = none
-  self.uni-subtitle = none
-  self.uni-footer = self => {
+  self.quad-display-current-section = display-current-section
+  self.quad-title = none
+  self.quad-subtitle = none
+  self.quad-footer = self => {
     let cell(fill: none, it) = rect(
       width: 100%, height: 100%, inset: 1mm, outset: 0mm, fill: fill, stroke: none,
       align(horizon, text(fill: white, it))
@@ -328,21 +342,21 @@
       cell(fill: self.colors.error, utils.call-or-display(self, footer-d)),
     )
   }
-  self.uni-header = self => {
-    if self.uni-title != none {
+  self.quad-header = self => {
+    if self.quad-title != none {
       block(inset: (x: .5em), 
         grid(
           columns: 1,
           gutter: .3em,
           grid(
             columns: (auto, 1fr, auto),
-            align(top + left, text(fill: self.colors.primary, weight: "bold", size: 1.2em, self.uni-title)),
+            align(top + left, text(fill: self.colors.primary, weight: "bold", size: 1.2em, self.quad-title)),
             [],
-            if self.uni-display-current-section {
+            if self.quad-display-current-section {
               align(top + right, text(fill: self.colors.primary.lighten(65%), states.current-section-with-numbering(self)))
             }
           ),
-          text(fill: self.colors.primary.lighten(65%), size: .8em, self.uni-subtitle)
+          text(fill: self.colors.primary.lighten(65%), size: .8em, self.quad-subtitle)
         )
       )
     }
@@ -353,16 +367,16 @@
     grid(
       rows: (auto, auto),
       row-gutter: 3mm,
-      if self.uni-enable-progress-bar {
-        utils.call-or-display(self, self.uni-progress-bar)
+      if self.quad-enable-progress-bar {
+        utils.call-or-display(self, self.quad-progress-bar)
       },
-      utils.call-or-display(self, self.uni-header),
+      utils.call-or-display(self, self.quad-header),
     )
   }
   let footer(self) = {
     set text(size: .4em)
     set align(center + bottom)
-    utils.call-or-display(self, self.uni-footer)
+    utils.call-or-display(self, self.quad-footer)
   }
 
   self.page-args += (

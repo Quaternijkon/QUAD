@@ -3,7 +3,15 @@
 #import "lib.typ":*
 
 #show: init
-#show strong: alert
+// #show strong: alert
+
+
+
+#show strong: it=>{
+  set text(fill: rgb("#EA4335"))
+  [#it]
+}
+
 #show emph: it => {
   let colors = (
      rgb("#4285F4"),

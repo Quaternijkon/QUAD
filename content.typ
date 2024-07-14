@@ -1,32 +1,33 @@
 #import "config.typ": *
-// #import "lib.typ": *
+#import "lib.typ": *
 
-#outline(title: none, indent: 2em)
+// #outline(title: none, indent: 2em)
+#touying-outline()
 
 = First Section
 
 == First Slide
 
 #slide[
-  A slide with a title #alert[and] an *important* information.
+  A slide with a title #alert[and] an *important* #_error[information].
 
 ]
 
-== First Slide
-
-#slide[
-  A slide with a title and an *important* information.
-]
-
-= First Section
-
-== First Slide
+== Second Slide
 
 #slide[
   A slide with a title and an *important* information.
 ]
 
-= First Section
+= Second Section
+
+== First Slide
+
+#slide[
+  A slide with a title and an *important* #_tertiary[information].
+]
+
+= Third Section
 
 == First Slide
 

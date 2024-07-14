@@ -39,26 +39,46 @@
   rgb("#EA4335"),
 )
 
-#let dye(text)={
-  let colors = [
-    #theme-primary,
-    #theme-secondary,
-    #theme-tertiary,
-    #theme-error,
-  ]
-  for i in range(11) {
-    let color = colors[i % 4];
-    let char = text[i];
-    // 用指定的颜色包裹每个字符
-    set text(color: color)
-    [#char]
-  }
+// #let dye(text)={
+//   let colors = [
+//     #theme-primary,
+//     #theme-secondary,
+//     #theme-tertiary,
+//     #theme-error,
+//   ]
+//   for i in range(11) {
+//     let color = colors[i % 4];
+//     let char = text[i];
+//     // 用指定的颜色包裹每个字符
+//     set text(color: color)
+//     [#char]
+//   }
+// }
+
+// #let XOR(a, b)={
+//   (a or b) and not (a and b)
+// }
+
+// #let hash(seed, index)={
+//     XOR(index*31+seed*17, index*8) and 0x3
+// }
+// 
+#let _primary(_text)={
+  set text(fill: primary)
+  [#_text]
 }
 
-#let XOR(a, b)={
-  (a or b) and not (a and b)
+#let _secondary(_text)={
+  set text(fill: secondary)
+  [#_text]
 }
 
-#let hash(seed, index)={
-    XOR(index*31+seed*17, index*8) and 0x3
+#let _tertiary(_text)={
+  set text(fill: tertiary)
+  [#_text]
+}
+
+#let _error(_text)={
+  set text(fill: error)
+  [#_text]
 }
