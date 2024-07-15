@@ -2,7 +2,8 @@
 #import "lib.typ": *
 
 // #outline(title: none, indent: 2em)
-#touying-outline()
+// #touying-outline()
+#outline-slide()
 
 = First Section
 

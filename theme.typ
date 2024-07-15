@@ -68,6 +68,7 @@
 // }
 
 
+
 #let slide(
   self: none,
   title: auto,
@@ -116,35 +117,84 @@
     }
     align(center + horizon, {
       block(
-        inset: 0em,
+        fill: self.colors.primary,
+        inset: 1.5em,
+        radius: 0.5em,
         breakable: false,
         {
-          text(size: 2em, fill: self.colors.primary, strong(info.title))
+          text(size: 1.22em, fill: white, weight: "bold", info.title)
           if info.subtitle != none {
             parbreak()
-            text(size: 1.2em, fill: self.colors.primary, info.subtitle)
+            text(size: 1.0em, fill: white, weight: "bold", info.subtitle)
           }
         }
       )
-      set text(size: .8em)
+      // set text(size: .8em)
       grid(
         columns: (1fr,) * calc.min(info.authors.len(), 3),
         column-gutter: 1em,
         row-gutter: 1em,
-        ..info.authors.map(author => text(fill: self.colors.secondary, author))
+        ..info.authors.map(author => text( author ))
       )
-      v(1em)
+      v(0.5em)
       if info.institution != none {
         parbreak()
-        text(size: .9em, fill: self.colors.tertiary, info.institution)
+        text(size: .7em,  info.institution)
       }
       if info.date != none {
         parbreak()
-        text(size: .8em, fill: self.colors.error, utils.info-date(self))
+        text(size: 1.0em,  utils.info-date(self))
       }
     })
   }
   (self.methods.touying-slide)(self: self, repeat: none, content)
+}
+
+#let quad-outline(self: none) = states.touying-progress-with-sections(dict => {
+  let (current-sections, final-sections) = dict
+  current-sections = current-sections.filter(section => section.loc != none).map(section => (
+    section,
+    section.children,
+  )).flatten().filter(item => item.kind == "section")
+  final-sections = final-sections.filter(section => section.loc != none).map(section => (
+    section,
+    section.children,
+  )).flatten().filter(item => item.kind == "section")
+  let current-index = current-sections.len() - 1
+
+  for (i, section) in final-sections.enumerate() {
+    if i == 0 {
+      continue
+    }
+    set text(fill: if current-index == 0 or i == current-index {
+      self.colors.primary
+    } else {
+      self.colors.primary.lighten(80%)
+    })
+    block(
+      spacing: 1.5em,
+      [#link(section.loc, utils.section-short-title(section))<touying-link>],
+    )
+  }
+})
+
+#let outline-slide(self: none) = {
+  // Generates an outline slide with a title and content.
+  // The title is displayed as "目录" if the text language is "zh", otherwise it is displayed as "Outline".
+  // The content includes alignment settings, bold text, and the buaa-outline function.
+  // The outline slide is created using the touying-slide method.
+  // Parameters:
+  // - self: The self parameter of the outline-slide function.
+  // Returns:
+  // - The generated outline slide.
+  self.quad-title = context if text.lang == "zh" [目录] else [目录]
+  let content = {
+    set align(horizon)
+    set text(weight: "bold")
+    hide([-])
+    quad-outline(self: self)
+  }
+  (self.methods.touying-slide)(self: self, repeat: none, section: (title: context if text.lang == "zh" [目录] else [目录]), content)
 }
 
 #let new-section-slide(self: none, short-title: auto, title) = {
@@ -390,6 +440,7 @@
   // register methods
   self.methods.slide = slide
   self.methods.title-slide = title-slide
+  self.methods.outline-slide = outline-slide
   self.methods.new-section-slide = new-section-slide
   self.methods.touying-new-section-slide = new-section-slide
   self.methods.focus-slide = focus-slide
@@ -401,6 +452,7 @@
   self.methods.alert = (self: none, it) => text(fill: self.colors.primary, it)
   self.methods.init = (self: none, body) => {
     set text(size: 20pt, font: "PingFang SC")
+    //TODO:目录从0开始编号
     show footnote.entry: set text(size: .6em)
     body
   }

@@ -13,4 +13,4 @@
   institution: [新艾丽都],
 )
 #let (init, slides, touying-outline, alert) = utils.methods(s)
-#let (slide, title-slide, focus-slide, matrix-slide, empty-slide) = utils.slides(s)
+#let (slide, title-slide, outline-slide, focus-slide, matrix-slide, empty-slide) = utils.slides(s)
