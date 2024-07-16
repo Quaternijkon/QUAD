@@ -203,7 +203,7 @@
     set align(horizon)
     show: pad.with(20%)
     set text(size: 1.5em, fill: self.colors.primary, weight: "bold")
-    states.current-section-with-numbering(self)
+    states.current-section-title
     v(-.5em)
     block(height: 2pt, width: 100%, spacing: 0pt, utils.call-or-display(self, self.quad-progress-bar))
   }
@@ -403,7 +403,7 @@
             align(top + left, text(fill: self.colors.primary, weight: "bold", size: 1.2em, self.quad-title)),
             [],
             if self.quad-display-current-section {
-              align(top + right, text(fill: self.colors.primary.lighten(65%), states.current-section-with-numbering(self)))
+              align(top + right, text(fill: self.colors.secondary.lighten(65%), states.current-section-title))
             }
           ),
           text(fill: self.colors.primary.lighten(65%), size: .8em, self.quad-subtitle)
